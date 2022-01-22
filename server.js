@@ -12,22 +12,18 @@ app.use(express.static('public'));
 io.sockets.on('connection', function(socket) {
     socket.on('username', function(username) {
         socket.username = username;
-        io.emit('is_online', '🟢 <strong>' + socket.username + '</strong> <i>joined the session.</i>');
-        
+        io.emit('is_online', '🟢 <strong>' + socket.username + '</strong> <i>joined the session.</i>'); 
     });
 
     socket.on('disconnect', function(username) {
-        io.emit('is_offline', '🔴 <strong>' + socket.username + '</strong> <i>left the session.</i>');
-        
+        io.emit('is_offline', '🔴 <strong>' + socket.username + '</strong> <i>left the session.</i>');   
     })
 
     socket.on('chat_message', function(message) {
-        io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + message);
-        
+        io.emit('chat_message', '<strong>' + socket.username + '</strong>: ' + message);  
     });
-
 });
 
-const server = http.listen(process.env.PORT || 8080, function() {
-    console.log('Ready: Port ' + process.env.PORT || 8080);
+const server = http.listen(process.env.PORT || 80, function() {
+    console.log('Ready: Port ' + process.env.PORT || 80);
 });
