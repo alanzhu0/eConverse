@@ -1,0 +1,16 @@
+{
+  "name": "econverse",
+  "version": "1.0.0",
+  "description": "Simple online chat.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Alan Zhu <alanzhu1231@gmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.2.0"
+  }
+}
