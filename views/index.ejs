@@ -236,7 +236,7 @@
   <script>
     var notFilled = $('#notfilled');
     notFilled.hide();
-    var socket = io.connect('http://localhost:8080'); //https://econverse.herokuapp.com
+    var socket = io.connect('https://econverse.herokuapp.com'); //localhost:8080
 
     $('#loginForm').submit(function (e) {
       e.preventDefault();
@@ -272,8 +272,6 @@
       var topPos = lastMsg.offsetTop;
       document.getElementById('box').scrollTop = topPos;
     }
-
-    //-------------SOCKET-----------------
 
     socket.on('chat_message', function (msg) {
       $('#messages').append($('<li>').html(msg));
