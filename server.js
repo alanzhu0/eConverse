@@ -47,4 +47,4 @@ const date = String(new Date()).substring(0,24) +" ET";
 // Server
 const server = http.listen(process.env.PORT || 80, function() { 
     console.log( date + ' | Server started.');
-});
+}); 
