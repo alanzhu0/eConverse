@@ -45,6 +45,6 @@ io.sockets.on('connection', function(socket) {
 
 const date = String(new Date()).substring(0,24) +" ET";
 // Server
-const server = http.listen(8080, function() { 
+const server = http.listen(80, function() { 
     console.log( date + ' | Server started.');
 });
