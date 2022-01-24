@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 
 app.set('subdomain offset', 1); // 1 for local, 2 for example.com, 3 for econverse.herokuapp.com, 4 for econverse.sites.tjhsst.edu, ...
-app.get('/', function(req, res, next) {
+app.get('*', function(req, res, next) {
     if(req.subdomains.length===0){
         res.render('index.ejs');
         console.log('a');
