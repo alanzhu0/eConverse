@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>eConverse</title>
   <meta name="description" content="eConverse is a simple session-based text-messaging app.">
@@ -24,17 +23,7 @@
       min-height: 100%;
       max-height: 100%;
       margin: 0;
-    }
-
-    #chatForm{
-      position: absolute;
-      bottom: 0;
-      background: #fff;
-      padding: 3px;
-      width: 100%;
-    }
-
-   
+    }   
 
     #messages {
       list-style-type: none;
@@ -83,21 +72,73 @@
       
     }
 
+@keyframes linkColor {
+  from {color: rgb(0, 162, 255);}
+  to {color: rgb(0, 209, 35);}
+}
+@keyframes linkColor2 {
+  from {color: rgb(255, 94, 94);}
+  to {color: rgb(255, 217, 0);}
+}
+@keyframes linkColor3 {
+  from {color: black;}
+  to {color: rgb(255, 217, 0);}
+}
+
+a.link, a.link:visited {
+  color: rgb(0, 162, 255);
+  text-decoration-line: none;
+  font-weight:bold;
+}
+
+a.link:hover {
+  animation-name: linkColor;
+  animation-duration: 0.2s;
+  color: rgb(0, 209, 35);
+}
+
+#roomLink {
+  color:rgb(255, 94, 94);
+  text-decoration-line: none;
+  font-weight:bold;
+}
+#roomLink:hover {
+  animation-name: linkColor2;
+  animation-duration: 0.2s;
+  color: rgb(255, 217, 0);
+  cursor:pointer;
+}
+
+#roomLinkCopied, .link2 {
+  color:black;
+  text-decoration-line: none;
+  font-weight:bold;
+}
+#roomLinkCopied:hover, .link2:hover {
+  animation-name: linkColor3;
+  animation-duration: 0.2s;
+  color: rgb(255, 217, 0);
+  cursor:pointer;
+}
+
+
+
+
     #about{
       position:absolute;
       bottom:0;
       left:0;
       text-align:center;
-      background-color: lightgrey;
-      padding:2%;
+      
+      padding:0.5%;
       font-family:'Times New Roman', Times, serif;
       font-size:16pt;
       width:100%;
     }
     #loginForm {
       position:relative;
-        top:20%;
-
+        top:18%;
+        left:2%;
 
       margin-right: auto;
       margin-left:auto;
@@ -134,24 +175,31 @@
       border-radius:20px;
       /*border:5px solid lime;*/
       background-color: rgb(124, 255, 141);
-
-
+    }
+    /*#room-url{
+      position:relative;
+      left:42%;
+      display:inline;
+    }*/
+    #room-url p{
+      font-family: 'Times New Roman', Times, serif; 
+      font-size:36pt; 
+      padding:15px;
+      margin-left:0;
+      margin-right:0; 
+      position:absolute;
+      left:2%;
+      top:27.2%;
+    }
+    #JoinRoom{
+      font-family: 'Times New Roman', Times, serif; 
+      font-size:36pt;
+      position:absolute;
+      left:2%;
+      top:20%;
     }
 
 
-    
-   /* #name::placeholder {
-  color: black;
-  opacity: 1; 
-}
-
-:-ms-input-placeholder { 
-  color: red;
-}
-
-::-ms-input-placeholder {
-  color: red;
-}*/
 
 #messages li {
       padding: 5px 10px;
@@ -163,6 +211,14 @@
  background: rgb(245, 245, 245);
   }
 
+  #chatForm{
+      position: absolute;
+      bottom: 0;
+      background: #fff;
+      padding: 3px;
+      width: 100%;
+
+    }
 #txt {
       background-color: rgb(255, 240, 152);
       position: absolute;
@@ -185,7 +241,7 @@
       background: rgb(124, 255, 141);
       border: none;
       padding: 10px;
-      font-size:16pt;
+      font-size:14pt;
     }
 
 
@@ -195,51 +251,62 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
-
-<!--------------------------------------->
-
 <body>
-  
-
   <div id="login">
-    
+    <a href="/">
      <img id="headerimg" src="logo.png" alt="eConverse" title="eConverse" />
-    
+    </a>
     <br />
     <br />
     <hr noshade>
+    <br />
+  
+    <div id="room-url">
+      
+      <!--<p id="roomDomain" style="background-color: rgb(185, 185, 185);"></h1>-->
+      <p id="roomPath"   style="background-color: lightgrey;"></h1>
+    </div>
+    <h1 id="JoinRoom">Join Room</h1>
 
     <form action="/" method="POST" id="loginForm">
-     <input title="Please enter your name to join the session." id="name" type="text" maxlength="50" autocomplete="off" autofocus required placeholder="Please enter your name to join the session..." />
-    <input title="Join session" id="loginSubmit" type="submit" value="&gt;" />
+     <input title="Please enter your name to join the session." id="name" type="text" maxlength="50" autocomplete="off" autofocus required placeholder="Name" />
+    <input title="Join session" id="loginSubmit" type="submit" value="&#11166;" />
     </form>
 
-    <p id="about"><b>eConverse</b> is a simple session-based text-messaging app built using Node.js and WebSockets <br /> ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ <br />Made by Alan Zhu</p>
+    <p id="about">Copyright &copy; 2020-2022 Alan Zhu <br> <a class="link" href="/" title="eConverse Home">Home</a> | <a title="View Code on Github" class="link" target="_blank" href="https://github.com/alanzhu1/eConverse">Open-Source</a></p>
+    
   </div> <!-- /login-->
 
   <div id="box">
     <ul id="messages">
-      <li style="background-color: rgb(130, 224, 255);"><strong>Welcome to eConverse!</strong></li>
-    </ul>
+      <li style="background-color: rgb(130, 224, 255); height:50px;">
+        <p title="Back to eConverse home" class="link2" onclick='javascript:history.back()' style="font-size:16pt; text-align:left; display:inline; font-weight:normal; position:absolute; left:15px; top:10px;">&#11164; Back</p>
+        <img src='logo.png' alt='eConverse' height="47" style="display:inline; position:absolute;  left:45%; top:2px;vertical-align: middle;" />
+        <p id="roomLink" title="Click to copy room link" style="text-align:right; display:inline; position:absolute; right:15px;top:13px; font-size:16pt;"></p></li>
+        </ul>
   </div>
 
   <form action="/" method="POST" id="chatForm">
     <p id="notfilled">Please enter a message</p>
 
     <input id="txt" autocomplete="off" onkeydown="isTyping()" placeholder="Say something..." />
-    <input type="submit" id="submit" value="&gt;" title="Submit"/>
+    <input type="submit" id="submit" value="&#11166;" title="Submit"/>
   </form>
 
 
   <script>
     // Initialization
-    var notFilled = $('#notfilled');
+    var roomUrl=location.pathname.substring(1,location.pathname.length);
+    var host = window.location.hostname;
+    document.title=roomUrl + " | eConverse"
+
+    //$('#roomDomain').text(host+"/");
+    $('#roomPath').text(roomUrl);
+    var notFilled=$('#notfilled')
     notFilled.hide();
 
     // Connect
-    var domain = /:\/\/([^\/]+)/.exec(window.location.href)[1];
-    console.log(domain);
-    var socket = io.connect(domain); 
+    var socket = io.connect(host); 
 
     // Forms
     $('#loginForm').submit(function (e) {
@@ -249,20 +316,17 @@
       $('#login').hide();
     });
 
-
     $('#chatForm').submit(function (e) {
       e.preventDefault();
       var txt = $('#txt');
       if (!txt.val()) {
         notFilled.show();
-       
         return false;
       }
       else {
         notFilled.hide();
         socket.emit('msg', txt.val());
         txt.val('');
-      
         return false;
       }
     });
@@ -271,31 +335,54 @@
     function isTyping() {
       notFilled.hide();
     }
-
     function autoscroll(){
       var lastMsg = document.getElementById('messages').lastElementChild;
       var topPos = lastMsg.offsetTop;
       document.getElementById('box').scrollTop = topPos;
     }
 
-    // Change html
+    // Copy room link
+    var roomLinkEl=$('#roomLink');
+    roomLinkEl.text(host+'/'+roomUrl);
 
+    roomLinkEl.click(function() {
+      navigator.clipboard.writeText("http\:\/\/" + host+'/'+roomUrl);
+      roomLinkEl.text("Copied!").attr('id', 'roomLinkCopied');
+      roomLinkCopied=$('#roomLinkCopied');
+      setTimeout(function(){ roomLinkCopied.text(host+'/'+roomUrl); }, 1500);
+    });
+    
+    $('#roomLinkCopied').click(function() {
+      navigator.clipboard.writeText("http\:\/\/" + host+'/'+roomUrl);
+      roomLinkCopied.text("Copied!");
+      setTimeout(function(){  roomLinkCopied.text(host+'/'+roomUrl); }, 1500);
+    });
+
+    // Change html
+    var confirmedPath = "␜" + window.location.pathname + "␜"; // File separator character to distinguish rooms
+    //console.log(confirmedPath);
     socket.on('message', function (msg) {
-      $('#messages').append($('<li>').html(msg));
-        autoscroll();  
+      if(msg.startsWith(confirmedPath)){
+            var msgNopath=msg.replace(confirmedPath,'');
+        $('#messages').append($('<li>').html(msgNopath));
+          autoscroll();  
+      }
     });
     socket.on('on', function (username) {
-      $('#messages').append($('<li style="background-color: rgb(216, 255, 200)">').html(username));
+      if(username.startsWith(confirmedPath)){
+            var usernameNopath=username.replace(confirmedPath,'');
+      $('#messages').append($('<li style="background-color: rgb(216, 255, 200)">').html(usernameNopath));
         autoscroll();
+      }
     });
     socket.on('off', function (username) {
-      $('#messages').append($('<li style="background-color: rgb(255, 223, 223);">').html(username));
-        autoscroll();
+      if(username.startsWith(confirmedPath)){
+            var usernameNopath=username.replace(confirmedPath,'');
+        $('#messages').append($('<li style="background-color: rgb(255, 223, 223);">').html(usernameNopath));
+          autoscroll();
+      }
     });
 
-
   </script>
-
 </body>
-
 </html>
