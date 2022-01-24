@@ -6,7 +6,7 @@
   <meta name="description" content="eConverse is a simple session-based text-messaging app.">
   <meta name="keywords" content="eConverse, text messaging, chat">
   <meta name="author" content="Alan Zhu">
-  <link href="favicon.png" rel="icon" />
+  <link href="favicon.ico" rel="icon" />
   <style>
     * {
       margin: 0;
@@ -192,7 +192,7 @@
 
   </style>
   <script src="../../socket.io/socket.io.js"></script>
-  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 
@@ -203,20 +203,18 @@
 
   <div id="login">
     
-   <!-- header image-->
-     <img id="headerimg" src="logo.png" alt="eConverse" title="eConverse" />
+    <!-- <img id="headerimg" src="logo.png" alt="eConverse" title="eConverse" />-->
     
-    <!--<h1 id="theader">Welcome to eConverse!</h1>-->
     <br />
     <br />
     <hr noshade>
 
     <form action="/" method="POST" id="loginForm">
-     <input title="Please enter your name to join the session." id="name" type="text" maxlength="50" autocomplete="off" autofocus required placeholder="Please enter your name to join the session..." />
+     <input title="PLEASE enter your name to join the session." id="name" type="text" maxlength="50" autocomplete="off" autofocus required placeholder="Please enter your name to join the session..." />
     <input title="Join session" id="loginSubmit" type="submit" value="&gt;" />
     </form>
 
-    <p id="about"><b>eConverse</b> is a simple session-based text-messaging app built using Node.js and WebSockets <br /> ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ <br />Made by Alan Zhu</p>
+    <p id="about"><b>ECONVERSE</b> is a simple session-based text-messaging app built using Node.js and WebSockets <br /> ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ <br />Made by Alan Zhu</p>
   </div> <!-- /login-->
 
   <div id="box">
@@ -234,10 +232,17 @@
 
 
   <script>
+    // Initialization
     var notFilled = $('#notfilled');
     notFilled.hide();
-    var socket = io.connect('https://econverse.herokuapp.com'); //localhost:8080
 
+    // Connect
+    var domain = /:\/\/([^\/]+)/.exec(window.location.href)[1];
+    console.log(domain);
+
+    var socket = io.connect(domain); 
+
+    // Forms
     $('#loginForm').submit(function (e) {
       e.preventDefault();
       var username = $('#name').val();
@@ -256,13 +261,14 @@
       }
       else {
         notFilled.hide();
-        socket.emit('chat_message', txt.val());
+        socket.emit('msg', txt.val());
         txt.val('');
       
         return false;
       }
     });
 
+    // Validation and Autoscroll
     function isTyping() {
       notFilled.hide();
     }
@@ -273,23 +279,21 @@
       document.getElementById('box').scrollTop = topPos;
     }
 
-    socket.on('chat_message', function (msg) {
+    // Change html
+
+    socket.on('message', function (msg) {
       $('#messages').append($('<li>').html(msg));
         autoscroll();  
     });
-
-    socket.on('is_online', function (username) {
+    socket.on('on', function (username) {
       $('#messages').append($('<li style="background-color: rgb(216, 255, 200)">').html(username));
         autoscroll();
     });
-    socket.on('is_offline', function (username) {
+    socket.on('off', function (username) {
       $('#messages').append($('<li style="background-color: rgb(255, 223, 223);">').html(username));
         autoscroll();
     });
 
-    //var username = prompt('Please enter your name to join the session.');
-    //socket.emit('username', username);
-    
 
   </script>
 
