@@ -9,8 +9,8 @@
   "author": "Alan Zhu <alanzhu1231@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
-    "ejs": "^3.1.7",
-    "express": "^4.17.1",
-    "socket.io": "^2.4.0"
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.1"
   }
 }
